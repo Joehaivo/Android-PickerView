@@ -110,7 +110,11 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
             tvTitle.setText(text);
         }
     }
-
+    
+    public WheelOptions<T> getWheelOptions() {
+        return wheelOptions;
+    }
+    
     /**
      * 设置默认选中项
      *
