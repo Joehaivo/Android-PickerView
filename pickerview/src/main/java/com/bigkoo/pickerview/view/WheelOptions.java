@@ -13,6 +13,7 @@ import java.util.List;
 
 public class WheelOptions<T> {
     private View view;
+    private OptionsPickerView<T> pickerView;
     private WheelView wv_option1;
     private WheelView wv_option2;
     private WheelView wv_option3;
@@ -36,10 +37,11 @@ public class WheelOptions<T> {
         this.view = view;
     }
 
-    public WheelOptions(View view, boolean isRestoreItem) {
+    public WheelOptions(OptionsPickerView<T> pickerView, View view, boolean isRestoreItem) {
         super();
         this.isRestoreItem = isRestoreItem;
         this.view = view;
+        this.pickerView = pickerView;
         wv_option1 = (WheelView) view.findViewById(R.id.options1);// 初始化时显示的数据
         wv_option2 = (WheelView) view.findViewById(R.id.options2);
         wv_option3 = (WheelView) view.findViewById(R.id.options3);
@@ -89,7 +91,7 @@ public class WheelOptions<T> {
                 int opt2Select = 0;
                 if (mOptions2Items == null) {//只有1级联动数据
                     if (optionsSelectChangeListener != null) {
-                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), 0, 0);
+                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), 0, 0, pickerView);
                     }
                 } else {
                     if (!isRestoreItem) {
@@ -104,7 +106,7 @@ public class WheelOptions<T> {
                         wheelListener_option2.onItemSelected(opt2Select);
                     } else {//只有2级联动数据，滑动第1项回调
                         if (optionsSelectChangeListener != null) {
-                            optionsSelectChangeListener.onOptionsSelectChanged(index, opt2Select, 0);
+                            optionsSelectChangeListener.onOptionsSelectChanged(index, opt2Select, 0, pickerView);
                         }
                     }
                 }
@@ -131,11 +133,11 @@ public class WheelOptions<T> {
 
                     //3级联动数据实时回调
                     if (optionsSelectChangeListener != null) {
-                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, opt3);
+                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, opt3, pickerView);
                     }
                 } else {//只有2级联动数据，滑动第2项回调
                     if (optionsSelectChangeListener != null) {
-                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, 0);
+                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, 0, pickerView);
                     }
                 }
             }
@@ -152,7 +154,7 @@ public class WheelOptions<T> {
             wv_option3.setOnItemSelectedListener(new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(int index) {
-                    optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), wv_option2.getCurrentItem(), index);
+                    optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), wv_option2.getCurrentItem(), index, pickerView);
                 }
             });
         }
@@ -183,7 +185,7 @@ public class WheelOptions<T> {
             wv_option1.setOnItemSelectedListener(new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(int index) {
-                    optionsSelectChangeListener.onOptionsSelectChanged(index, wv_option2.getCurrentItem(), wv_option3.getCurrentItem());
+                    optionsSelectChangeListener.onOptionsSelectChanged(index, wv_option2.getCurrentItem(), wv_option3.getCurrentItem(), pickerView);
                 }
             });
         }
@@ -196,7 +198,7 @@ public class WheelOptions<T> {
                 wv_option2.setOnItemSelectedListener(new OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(int index) {
-                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, wv_option3.getCurrentItem());
+                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, wv_option3.getCurrentItem(), pickerView);
                     }
                 });
             }
@@ -209,7 +211,7 @@ public class WheelOptions<T> {
                 wv_option3.setOnItemSelectedListener(new OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(int index) {
-                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), wv_option2.getCurrentItem(), index);
+                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), wv_option2.getCurrentItem(), index, pickerView);
                     }
                 });
             }
