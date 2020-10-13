@@ -165,10 +165,10 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
     //不联动情况下调用
     public void setNPicker(List<T> options1Items,
                            List<T> options2Items,
-                           List<T> options3Items) {
+                           List<T> options3Items,int selectedItem1, int selectedItem2, int selectedItem3) {
 
         wheelOptions.setLinkage(false);
-        wheelOptions.setNPicker(options1Items, options2Items, options3Items);
+        wheelOptions.setNPicker(options1Items, options2Items, options3Items, selectedItem1, selectedItem2, selectedItem3);
         reSetCurrentItems();
     }
 
